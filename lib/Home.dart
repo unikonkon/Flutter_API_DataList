@@ -32,85 +32,70 @@ class _HomeState extends State<Home> {
       future: fetchData(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (BuildContext context, int index) {
-                // print(snapshot.data![index].url);
-                final img = snapshot.data![index].url;
-                final title = snapshot.data![index].title;
-                return Padding(
-                  padding: EdgeInsets.only(
-                      right: 10.w, left: 10.w, top: 8.h, bottom: 8.h),
-                  child: SizedBox(
-                    height: 100.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        backgroundColor: Color.fromARGB(255, 59, 76, 89),
-                        fixedSize: Size(0.15.sw, 10.h),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.w),
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("Home"),
+              automaticallyImplyLeading: false,
+              backgroundColor: Color.fromARGB(255, 25, 27, 61),
+            ),
+            body: ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  // print(snapshot.data![index].url);
+                  final img = snapshot.data![index].url;
+                  final title = snapshot.data![index].title;
+                  return Padding(
+                    padding: EdgeInsets.only(
+                        right: 8.w, left: 8.w, top: 8.h, bottom: 8.h),
+                    child: SizedBox(
+                      height: 100.h,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          backgroundColor: Color.fromARGB(255, 59, 76, 89),
+                          fixedSize: Size(0.15.sw, 10.h),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.w),
+                          ),
+                          alignment: Alignment.center,
                         ),
-                        alignment: Alignment.center,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                DataList(img: img, title: title),
-                          ),
-                        );
-                      },
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            // width: 250.w,
-                            // height: 250.h,
-                            child: CircleAvatar(
-                                backgroundImage: NetworkImage(img)),
-                          ),
-                          SizedBox(
-                            width: 15.w,
-                          ),
-
-                          SizedBox(
-                            width: 300.w,
-                            child: Text(
-                              title,
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 232, 218, 218),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  DataList(img: img, title: title),
                             ),
-                          ),
-                          // Column(
-                          //   children: [
-                          //     Text(
-                          //       title,
-                          //       overflow: TextOverflow.visible,
-                          //       style: TextStyle(
-                          //         fontSize: 20.sp,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
-                        ],
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 50.w,
+                              height: 50.h,
+                              child: CircleAvatar(
+                                  backgroundImage: NetworkImage(img)),
+                            ),
+                            SizedBox(
+                              width: 15.w,
+                            ),
+                            SizedBox(
+                              width: 300.w,
+                              child: Text(
+                                title,
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 232, 218, 218),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20.0),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-
-                // Container(
-                //   height: 75,
-                //   color: Colors.white,
-                //   child: Center(
-                //     child: Text(
-                //       snapshot.data![index].title,
-                //     ),
-                //   ),
-                // );
-              });
+                  );
+                }),
+          );
         } else if (snapshot.hasError) {
           return Text(snapshot.error.toString());
         }
@@ -125,5 +110,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-//  style: TextStyle(fontSize: 25.sp),
